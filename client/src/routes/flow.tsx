@@ -33,11 +33,43 @@ const initialNodes: Node[] = [
       label: "Node 2",
     },
   },
+  {
+    id: "n3a",
+    position: {
+      x: 500,
+      y: -50,
+    },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
+    data: {
+      label: "Node 3 A",
+    },
+  },
+  {
+    id: "n3b",
+    position: {
+      x: 500,
+      y: 50,
+    },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
+    data: {
+      label: "Node 3 B",
+    },
+  },
 ];
 const initialEdges: Edge[] = [{
   id: "n1-n2",
   source: "n1",
   target: "n2",
+}, {
+  id: "n2-n3a",
+  source: "n2",
+  target: "n3a",
+}, {
+  id: "n2-n3b",
+  source: "n2",
+  target: "n3b",
 }];
 
 export const Route = createFileRoute("/flow")({
