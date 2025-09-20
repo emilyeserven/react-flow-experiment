@@ -3,7 +3,7 @@ import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from "@xyflo
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow } from "@xyflow/react";
+import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
@@ -61,7 +61,7 @@ function Flow() {
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "calc(100vh - 50px)",
       }}
     >
       <ReactFlow
@@ -71,7 +71,14 @@ function Flow() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         fitView
-      />
+      >
+        <Background
+          variant={BackgroundVariant.Cross}
+          gap={50}
+        />
+        <Controls />
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 }
