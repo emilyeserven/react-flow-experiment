@@ -1,3 +1,5 @@
+import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from "@xyflow/react";
+
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
@@ -6,7 +8,7 @@ import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow } from "@xyflow/
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
 
-const initialNodes = [
+const initialNodes: Node[] = [
   {
     id: "n1",
     position: {
@@ -28,7 +30,7 @@ const initialNodes = [
     },
   },
 ];
-const initialEdges = [{
+const initialEdges: Edge[] = [{
   id: "n1-n2",
   source: "n1",
   target: "n2",
@@ -42,15 +44,15 @@ function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
-  const onNodesChange = useCallback(
+  const onNodesChange: OnNodesChange = useCallback(
     changes => setNodes(nodesSnapshot => applyNodeChanges(changes, nodesSnapshot)),
     [],
   );
-  const onEdgesChange = useCallback(
+  const onEdgesChange: OnEdgesChange = useCallback(
     changes => setEdges(edgesSnapshot => applyEdgeChanges(changes, edgesSnapshot)),
     [],
   );
-  const onConnect = useCallback(
+  const onConnect: OnConnect = useCallback(
     params => setEdges(edgesSnapshot => addEdge(params, edgesSnapshot)),
     [],
   );
