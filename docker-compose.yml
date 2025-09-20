@@ -1,0 +1,19 @@
+services:
+  middleware:
+    build:
+      context: ./middleware
+      dockerfile: Dockerfile
+    container_name: middleware
+    ports:
+      - "3001:3001"
+    environment:
+      - VALUE="Hi there!"
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - middleware
