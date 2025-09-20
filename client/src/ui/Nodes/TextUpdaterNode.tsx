@@ -1,11 +1,9 @@
-import type { NodeProps } from "@xyflow/react";
-
 import { useCallback } from "react";
 
 import { Handle, Position } from "@xyflow/react";
 
 export function TextUpdaterNode() {
-  const onChange = useCallback((evt) => {
+  const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     console.log(evt.target.value);
   }, []);
 
@@ -39,7 +37,7 @@ export function TextUpdaterNode() {
           id="text"
           name="text"
           onChange={onChange}
-          className="nodrag"
+          className="dark:text-white"
         />
       </div>
     </div>
