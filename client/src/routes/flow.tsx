@@ -3,7 +3,7 @@ import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from "@xyflo
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
+import { addEdge, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
@@ -15,6 +15,8 @@ const initialNodes: Node[] = [
       x: 0,
       y: 0,
     },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
     data: {
       label: "Node 1",
     },
@@ -22,9 +24,11 @@ const initialNodes: Node[] = [
   {
     id: "n2",
     position: {
-      x: 0,
-      y: 100,
+      x: 250,
+      y: 0,
     },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
     data: {
       label: "Node 2",
     },
