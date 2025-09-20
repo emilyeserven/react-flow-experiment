@@ -1,19 +1,3 @@
-# The Stack
+# Todo
 
-This template exists because I don't really like fullstack frameworks.
-
-## Overall Tech
-- TypeScript
-- React (Frontend)
-- Fastify (Middleware/Backend)
-
-## Tooling
-- ESLint
-- PNPM
-- Vite
-- Docker
-- Storybook
-
-## FE Tech
-- TanStack Query + Router
-- ShadCN + Radix Primitives
+- Make a custom node that fetches from swapi or pokemon api and allows someone to select something using a shadcn combobox
