@@ -1,13 +1,14 @@
-import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from "@xyflow/react";
+import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode } from "@xyflow/react";
 import type { ChangeEventHandler } from "react";
 
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { addEdge, Panel, ColorMode, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
+import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
+import { TextUpdaterNode } from "@/ui/Nodes/TextUpdaterNode.tsx";
 
 const initialNodes: Node[] = [
   {
@@ -48,6 +49,7 @@ const initialNodes: Node[] = [
   },
   {
     id: "n3b",
+    type: "textUpdater",
     position: {
       x: 500,
       y: 50,
@@ -72,6 +74,10 @@ const initialEdges: Edge[] = [{
   source: "n2",
   target: "n3b",
 }];
+
+const nodeTypes = {
+  textUpdater: TextUpdaterNode,
+};
 
 export const Route = createFileRoute("/flow")({
   component: Flow,
@@ -108,6 +114,7 @@ function Flow() {
     >
       <ReactFlow
         nodes={nodes}
+        nodeTypes={nodeTypes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
