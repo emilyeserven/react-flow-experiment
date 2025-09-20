@@ -24,6 +24,13 @@ const RootComponent: React.FunctionComponent = () => {
           About
         </Link>
 
+        <Link
+          to="/flow"
+          className="[&.active]:font-bold"
+        >
+          Flow
+        </Link>
+
         {
           theme === "dark"
             ? (
