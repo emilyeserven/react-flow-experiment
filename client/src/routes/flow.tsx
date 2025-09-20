@@ -1,9 +1,10 @@
 import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from "@xyflow/react";
+import type { ChangeEventHandler } from "react";
 
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { addEdge, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
+import { addEdge, Panel, ColorMode, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
@@ -77,6 +78,7 @@ export const Route = createFileRoute("/flow")({
 });
 
 function Flow() {
+  const [colorMode, setColorMode] = useState<ColorMode>("system");
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
@@ -93,6 +95,10 @@ function Flow() {
     [],
   );
 
+  const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
+    setColorMode(evt.target.value as ColorMode);
+  };
+
   return (
     <div
       style={{
@@ -106,6 +112,7 @@ function Flow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        colorMode={colorMode}
         fitView
       >
         <Background
@@ -114,6 +121,21 @@ function Flow() {
         />
         <Controls />
         <MiniMap />
+
+        <Panel position="top-left">
+          <select
+            className={`
+              bg-black text-white
+              dark:bg-white dark:text-black
+            `}
+            onChange={onChange}
+            data-testid="colormode-select"
+          >
+            <option value="dark">dark</option>
+            <option value="light">light</option>
+            <option value="system">system</option>
+          </select>
+        </Panel>
       </ReactFlow>
     </div>
   );
