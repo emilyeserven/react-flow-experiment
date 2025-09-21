@@ -27,11 +27,15 @@ export interface SelectOption {
 interface ComboboxProps {
   data: SelectOption[] | undefined;
   refetch: () => void;
+  selectString?: string;
+  searchString?: string;
 }
 
 export function ComboboxDemo({
   data,
   refetch,
+  selectString = "Select...",
+  searchString = "Search...",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -57,14 +61,14 @@ export function ComboboxDemo({
         >
           {value
             ? data?.find(item => item.value === value)?.label
-            : "Select..."}
+            : selectString}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput
-            placeholder="Search..."
+            placeholder={searchString}
             className="h-9"
           />
           <CommandList>

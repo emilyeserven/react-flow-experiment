@@ -36,6 +36,8 @@ function About() {
       <ComboboxDemo
         data={filmData}
         refetch={refetch}
+        selectString="Select a film"
+        searchString="Search for a film"
       />
       {data && data.item}
     </div>
