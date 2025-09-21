@@ -32,12 +32,8 @@ export function ComboboxDemo() {
   });
 
   const handleOpen = async () => {
-    console.log(open);
     if (!open) {
       await refetch();
-      console.log(data);
-      console.log("value", value);
-      console.log("data", data.find(item => item.label === value));
     }
     setOpen(!open);
   };
@@ -74,7 +70,6 @@ export function ComboboxDemo() {
                   key={item.id}
                   value={item.value}
                   onSelect={(currentValue) => {
-                    console.log("value", currentValue, value);
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
