@@ -25,6 +25,7 @@ export interface SelectOption {
 }
 
 interface ComboboxProps {
+  initialValue?: string;
   data?: SelectOption[] | undefined;
   refetch?: () => void;
   setValueData?: React.Dispatch<React.SetStateAction<string>>;
@@ -34,6 +35,7 @@ interface ComboboxProps {
 }
 
 export function Combobox({
+  initialValue = "",
   data,
   refetch,
   setValueData,
@@ -42,7 +44,7 @@ export function Combobox({
   emptyString = "Nothing found",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState(initialValue ?? "");
 
   const handleOpen = async () => {
     if (!open && refetch) {
@@ -67,7 +69,7 @@ export function Combobox({
           className="w-[200px] justify-between"
         >
           {value
-            ? data?.find(item => item.value === value)?.label
+            ? data ? data?.find(item => item.value === value)?.label : initialValue
             : selectString}
           <ChevronsUpDown className="opacity-50" />
         </Button>

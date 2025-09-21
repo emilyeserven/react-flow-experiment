@@ -1,12 +1,16 @@
+import type { NodeProps } from "@xyflow/react";
+
 import { useState } from "react";
 
 import { Handle, Position } from "@xyflow/react";
 
 import { ComboboxFilms } from "@/components/ui/combobox/ComboboxFilms.tsx";
 
-export function FilmNode() {
-  const [valueData, setValueData] = useState<string>("");
-  console.log("valueData", valueData);
+export function FilmNode({
+  data,
+}: Partial<NodeProps>) {
+  const [valueData, setValueData] = useState<string>(data?.value ? data.value as string : "");
+
   return (
     <div
       className={`
@@ -25,7 +29,10 @@ export function FilmNode() {
           type="source"
           position={Position.Right}
         />
-        <ComboboxFilms setValueData={setValueData} />
+        <ComboboxFilms
+          initialValue={valueData}
+          setValueData={setValueData}
+        />
       </div>
     </div>
   );

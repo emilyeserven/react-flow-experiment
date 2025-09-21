@@ -4,10 +4,12 @@ import { Combobox } from "@/components/ui/combobox/Combobox.tsx";
 import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
 interface ComboboxFilmsProps {
+  initialValue?: string;
   setValueData?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ComboboxFilms({
+  initialValue,
   setValueData,
 }: ComboboxFilmsProps) {
   const {
@@ -23,6 +25,7 @@ export function ComboboxFilms({
     <Combobox
       data={filmData}
       refetch={refetch}
+      initialValue={initialValue}
       setValueData={setValueData}
       selectString="Select a film"
       searchString="Search for a film"
