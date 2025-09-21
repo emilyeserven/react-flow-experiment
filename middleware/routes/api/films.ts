@@ -10,7 +10,10 @@ export default async function (server: FastifyInstance) {
       const initialRequest = await fetch("https://swapi.info/api/films").then(res => res.json());
       const finalData = [];
       initialRequest.forEach((film) => {
-        finalData.push(film.title);
+        finalData.push({
+          id: film.episode_id,
+          title: film.title,
+        });
       });
       return finalData;
     },

@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/shadui/popover";
 import { cn } from "@/lib/utils";
-import { fetchTest } from "@/utils/fetchFunctions.ts";
+import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
 const frameworks = [
   {
@@ -47,21 +47,21 @@ export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const {
-    isPending, error, data, refetch,
+    data, refetch,
   } = useQuery({
-    queryKey: ["test"],
-    queryFn: () => fetchTest(),
+    queryKey: ["films"],
+    queryFn: () => fetchFilms(),
     enabled: false,
   });
 
-  function handleOpen() {
+  const handleOpen = async () => {
     console.log(open);
     if (!open) {
-      refetch();
+      await refetch();
       console.log(data);
     }
     setOpen(!open);
-  }
+  };
 
   return (
     <Popover
