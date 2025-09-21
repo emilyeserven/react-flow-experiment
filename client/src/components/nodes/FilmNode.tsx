@@ -1,9 +1,10 @@
 import type { NodeProps, Node } from "@xyflow/react";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useReactFlow, Handle, Position } from "@xyflow/react";
 
+import { Button } from "@/components/ui/Button.tsx";
 import { ComboboxFilms } from "@/components/ui/combobox/ComboboxFilms.tsx";
 
 export type FilmNodeProps = Node<
@@ -18,12 +19,12 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
     setNodes,
   } = useReactFlow();
   const [valueData, setValueData] = useState<string>(props.data?.valueData ? props.data.valueData as string : "");
+  const [editMode, setEditMode] = useState<boolean>(false);
 
-  useEffect(() => {
+  const updateValue = () => {
     setNodes(nodes =>
       nodes.map((node) => {
         if (node.id === props.id) {
-          console.log("node", node);
           return {
             ...node,
             data: {
@@ -35,7 +36,8 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
 
         return node;
       }));
-  }, [valueData]);
+    setEditMode(false);
+  };
 
   console.log("props", props);
   return (
@@ -56,10 +58,24 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
           type="source"
           position={Position.Right}
         />
-        <ComboboxFilms
-          initialValue={valueData}
-          setValueData={setValueData}
-        />
+        { editMode && (
+          <div>
+            <ComboboxFilms
+              initialValue={valueData}
+              setValueData={setValueData}
+            />
+            {" "}
+            <Button onClick={() => { updateValue(); }}>Save</Button>
+
+          </div>
+        )}
+        { !editMode && (
+          <div>
+            {valueData}
+            <Button onClick={() => { setEditMode(true); }}>Edit</Button>
+          </div>
+        )}
+
       </div>
     </div>
   );
