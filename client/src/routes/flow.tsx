@@ -1,13 +1,14 @@
 import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode } from "@xyflow/react";
 import type { ChangeEventHandler } from "react";
 
-import { useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
+import { FilmNode } from "@/components/nodes/FilmNode.tsx";
 import { TextUpdaterNode } from "@/components/nodes/TextUpdaterNode.tsx";
 
 const initialNodes: Node[] = [
@@ -60,6 +61,19 @@ const initialNodes: Node[] = [
       label: "Node 3 B",
     },
   },
+  {
+    id: "n3c",
+    type: "film",
+    position: {
+      x: 500,
+      y: 150,
+    },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
+    data: {
+      label: "Node 3 C",
+    },
+  },
 ];
 const initialEdges: Edge[] = [{
   id: "n1-n2",
@@ -73,10 +87,15 @@ const initialEdges: Edge[] = [{
   id: "n2-n3b",
   source: "n2",
   target: "n3b",
+}, {
+  id: "n2-n3c",
+  source: "n2",
+  target: "n3c",
 }];
 
 const nodeTypes = {
   textUpdater: TextUpdaterNode,
+  film: FilmNode,
 };
 
 export const Route = createFileRoute("/flow")({
@@ -104,6 +123,10 @@ function Flow() {
   const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
     setColorMode(evt.target.value as ColorMode);
   };
+
+  useEffect(() => {
+    console.log(nodes);
+  }, [nodes]);
 
   return (
     <div
