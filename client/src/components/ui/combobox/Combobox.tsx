@@ -51,8 +51,6 @@ export function Combobox({
       await refetch();
     }
 
-    console.log("open", open);
-    console.log("sVD", setValueData);
     setOpen(!open);
   };
 
