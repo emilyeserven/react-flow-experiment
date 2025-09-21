@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { useQuery } from "@tanstack/react-query";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Button } from "@/components/shadui/button";
@@ -18,7 +17,6 @@ import {
   PopoverTrigger,
 } from "@/components/shadui/popover";
 import { cn } from "@/lib/utils";
-import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
 export interface SelectOption {
   id: string | number;
@@ -26,16 +24,17 @@ export interface SelectOption {
   label: string;
 }
 
-export function ComboboxDemo() {
+interface ComboboxProps {
+  data: SelectOption[] | undefined;
+  refetch: () => void;
+}
+
+export function ComboboxDemo({
+  data,
+  refetch,
+}: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const {
-    data, refetch,
-  } = useQuery({
-    queryKey: ["films"],
-    queryFn: () => fetchFilms(),
-    enabled: false,
-  });
 
   const handleOpen = async () => {
     if (!open) {

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { ComboboxDemo } from "@/components/ui/combobox.tsx";
-import { fetchTest } from "@/utils/fetchFunctions.ts";
+import { fetchFilms, fetchTest } from "@/utils/fetchFunctions.ts";
 
 export const Route = createFileRoute("/about")({
   component: About,
@@ -16,6 +16,14 @@ function About() {
     queryFn: () => fetchTest(),
   });
 
+  const {
+    data: filmData, refetch,
+  } = useQuery({
+    queryKey: ["films"],
+    queryFn: () => fetchFilms(),
+    enabled: false,
+  });
+
   return (
     <div className="p-2">
       <h2>Hello from About!</h2>
@@ -25,7 +33,10 @@ function About() {
         {error && "Erroring"}
         {data && "loaded!"}
       </p>
-      <ComboboxDemo />
+      <ComboboxDemo
+        data={filmData}
+        refetch={refetch}
+      />
       {data && data.item}
     </div>
   );
