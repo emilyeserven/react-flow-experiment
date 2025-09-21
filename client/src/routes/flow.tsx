@@ -8,7 +8,7 @@ import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
-import { TextUpdaterNode } from "@/ui/Nodes/TextUpdaterNode.tsx";
+import { TextUpdaterNode } from "@/ui/nodes/TextUpdaterNode.tsx";
 
 const initialNodes: Node[] = [
   {
