@@ -20,6 +20,12 @@ import {
 import { cn } from "@/lib/utils";
 import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
+export interface SelectOption {
+  id: string | number;
+  value: string;
+  label: string;
+}
+
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -51,7 +57,7 @@ export function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? data.find(item => item.label === value)?.label
+            ? data?.find(item => item.value === value)?.label
             : "Select..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
