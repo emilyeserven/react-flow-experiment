@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { Button } from "@/components/shadui/Button.tsx";
 import {
   Command,
   CommandEmpty,
@@ -16,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/shadui/popover.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import { cn } from "@/lib/utils.ts";
 
 export interface SelectOption {
