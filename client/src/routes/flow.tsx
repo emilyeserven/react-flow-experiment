@@ -71,7 +71,7 @@ const initialNodes: Node[] = [
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
     data: {
-      value: "The Empire Strikes Back",
+      valueData: "The Empire Strikes Back",
     },
   },
 ];

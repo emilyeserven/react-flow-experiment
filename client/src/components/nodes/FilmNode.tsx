@@ -1,16 +1,43 @@
-import type { NodeProps } from "@xyflow/react";
+import type { NodeProps, Node } from "@xyflow/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Handle, Position } from "@xyflow/react";
+import { useReactFlow, Handle, Position } from "@xyflow/react";
 
 import { ComboboxFilms } from "@/components/ui/combobox/ComboboxFilms.tsx";
 
-export function FilmNode({
-  data,
-}: Partial<NodeProps>) {
-  const [valueData, setValueData] = useState<string>(data?.value ? data.value as string : "");
+export type FilmNodeProps = Node<
+  {
+    valueData?: string;
+  },
+  "film"
+>;
 
+export function FilmNode(props: NodeProps<FilmNodeProps>) {
+  const {
+    setNodes,
+  } = useReactFlow();
+  const [valueData, setValueData] = useState<string>(props.data?.valueData ? props.data.valueData as string : "");
+
+  useEffect(() => {
+    setNodes(nodes =>
+      nodes.map((node) => {
+        if (node.id === props.id) {
+          console.log("node", node);
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              valueData,
+            },
+          };
+        }
+
+        return node;
+      }));
+  }, [valueData]);
+
+  console.log("props", props);
   return (
     <div
       className={`
