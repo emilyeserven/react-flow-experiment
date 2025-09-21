@@ -43,9 +43,9 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
   return (
     <div
       className={`
-        h-12.5 rounded-s-sm border-gray-100 bg-white p-1 shadow-gray-200
+        h-12.5 rounded-sm border border-gray-900 bg-white p-1 shadow-gray-200
         hover:shadow
-        dark:border-gray-500 dark:bg-gray-900
+        dark:border-gray-700 dark:bg-gray-900
       `}
     >
       <div>
