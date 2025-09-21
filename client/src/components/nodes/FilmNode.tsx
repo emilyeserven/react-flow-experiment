@@ -39,7 +39,6 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
     setEditMode(false);
   };
 
-  console.log("props", props);
   return (
     <div
       className={`
