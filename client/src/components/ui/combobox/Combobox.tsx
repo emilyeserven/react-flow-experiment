@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { Button } from "@/components/shadui/button";
+import { Button } from "@/components/shadui/button.tsx";
 import {
   Command,
   CommandEmpty,
@@ -10,13 +10,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/shadui/command";
+} from "@/components/shadui/command.tsx";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/shadui/popover";
-import { cn } from "@/lib/utils";
+} from "@/components/shadui/popover.tsx";
+import { cn } from "@/lib/utils.ts";
 
 export interface SelectOption {
   id: string | number;

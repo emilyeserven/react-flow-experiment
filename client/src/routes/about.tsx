@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Combobox } from "@/components/ui/Combobox.tsx";
+import { Combobox } from "@/components/ui/combobox/Combobox.tsx";
 import { fetchFilms, fetchTest } from "@/utils/fetchFunctions.ts";
 
 export const Route = createFileRoute("/about")({
