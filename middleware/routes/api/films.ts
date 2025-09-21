@@ -7,8 +7,12 @@ export default async function (server: FastifyInstance) {
   fastify.get(
     "/films",
     async function (request, reply) {
-      const test = await fetch("https://swapi.info/api/films");
-      return test;
+      const initialRequest = await fetch("https://swapi.info/api/films").then(res => res.json());
+      const finalData = [];
+      initialRequest.forEach((film) => {
+        finalData.push(film.title);
+      });
+      return finalData;
     },
   );
 }
