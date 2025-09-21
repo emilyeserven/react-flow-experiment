@@ -27,6 +27,7 @@ export interface SelectOption {
 interface ComboboxProps {
   data?: SelectOption[] | undefined;
   refetch?: () => void;
+  setValueData?: React.Dispatch<React.SetStateAction<string>>;
   selectString?: string;
   searchString?: string;
   emptyString?: string;
@@ -35,6 +36,7 @@ interface ComboboxProps {
 export function Combobox({
   data,
   refetch,
+  setValueData,
   selectString = "Select...",
   searchString = "Search...",
   emptyString = "Nothing found",
@@ -46,6 +48,9 @@ export function Combobox({
     if (!open && refetch) {
       await refetch();
     }
+
+    console.log("open", open);
+    console.log("sVD", setValueData);
     setOpen(!open);
   };
 
@@ -67,7 +72,7 @@ export function Combobox({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] bg-white p-0">
         <Command>
           <CommandInput
             placeholder={searchString}
@@ -82,6 +87,9 @@ export function Combobox({
                   value={item.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
+                    if (setValueData) {
+                      setValueData(currentValue === value ? "" : currentValue);
+                    }
                     setOpen(false);
                   }}
                 >

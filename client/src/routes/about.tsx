@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -16,6 +18,8 @@ function About() {
     queryFn: () => fetchTest(),
   });
 
+  const [valueData, setValueData] = useState<string>("");
+
   return (
     <div className="p-2">
       <h2>Hello from About!</h2>
@@ -25,8 +29,13 @@ function About() {
         {error && "Erroring"}
         {data && "loaded!"}
       </p>
-      <ComboboxFilms />
-      {data && data.item}
+      <ComboboxFilms setValueData={setValueData} />
+      <p>
+        Selected: {valueData}
+      </p>
+      <p>
+        {data && data.item}
+      </p>
     </div>
   );
 }

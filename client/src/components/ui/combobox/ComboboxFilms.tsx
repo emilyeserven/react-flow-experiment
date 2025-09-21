@@ -3,7 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Combobox } from "@/components/ui/combobox/Combobox.tsx";
 import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
-export function ComboboxFilms() {
+interface ComboboxFilmsProps {
+  setValueData?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function ComboboxFilms({
+  setValueData,
+}: ComboboxFilmsProps) {
   const {
     data: filmData, refetch,
   } = useQuery({
@@ -17,6 +23,7 @@ export function ComboboxFilms() {
     <Combobox
       data={filmData}
       refetch={refetch}
+      setValueData={setValueData}
       selectString="Select a film"
       searchString="Search for a film"
       emptyString="No movies found."
