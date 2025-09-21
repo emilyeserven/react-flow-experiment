@@ -32,7 +32,7 @@ interface ComboboxProps {
   emptyString?: string;
 }
 
-export function ComboboxDemo({
+export function Combobox({
   data,
   refetch,
   selectString = "Select...",

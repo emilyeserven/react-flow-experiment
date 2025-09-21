@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ComboboxDemo } from "@/components/ui/combobox.tsx";
+import { Combobox } from "@/components/ui/combobox.tsx";
 import { fetchFilms, fetchTest } from "@/utils/fetchFunctions.ts";
 
 export const Route = createFileRoute("/about")({
@@ -33,7 +33,7 @@ function About() {
         {error && "Erroring"}
         {data && "loaded!"}
       </p>
-      <ComboboxDemo
+      <Combobox
         data={filmData}
         refetch={refetch}
         selectString="Select a film"

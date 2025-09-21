@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ComboboxDemo } from './combobox';
+import { Combobox } from "./combobox";
 
 const meta = {
-  component: ComboboxDemo,
-} satisfies Meta<typeof ComboboxDemo>;
+  component: Combobox,
+} satisfies Meta<typeof Combobox>;
 
 export default meta;
 
