@@ -20,29 +20,6 @@ import {
 import { cn } from "@/lib/utils";
 import { fetchFilms } from "@/utils/fetchFunctions.ts";
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
-
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -59,6 +36,8 @@ export function ComboboxDemo() {
     if (!open) {
       await refetch();
       console.log(data);
+      console.log("value", value);
+      console.log("data", data.find(item => item.label === value));
     }
     setOpen(!open);
   };
@@ -76,34 +55,35 @@ export function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find(framework => framework.value === value)?.label
-            : "Select framework..."}
+            ? data.find(item => item.label === value)?.label
+            : "Select..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput
-            placeholder="Search framework..."
+            placeholder="Search..."
             className="h-9"
           />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No movies found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map(framework => (
+              {data && data.map(item => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={item.id}
+                  value={item.value}
                   onSelect={(currentValue) => {
+                    console.log("value", currentValue, value);
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
-                  {framework.label}
+                  {item.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value
+                      value === item.value
                         ? "opacity-100"
                         : "opacity-0",
                     )}

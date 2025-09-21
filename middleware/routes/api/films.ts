@@ -12,7 +12,8 @@ export default async function (server: FastifyInstance) {
       initialRequest.forEach((film) => {
         finalData.push({
           id: film.episode_id,
-          title: film.title,
+          value: film.episode_id,
+          label: film.title,
         });
       });
       return finalData;
