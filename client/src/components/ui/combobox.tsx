@@ -25,10 +25,11 @@ export interface SelectOption {
 }
 
 interface ComboboxProps {
-  data: SelectOption[] | undefined;
-  refetch: () => void;
+  data?: SelectOption[] | undefined;
+  refetch?: () => void;
   selectString?: string;
   searchString?: string;
+  emptyString?: string;
 }
 
 export function ComboboxDemo({
@@ -36,12 +37,13 @@ export function ComboboxDemo({
   refetch,
   selectString = "Select...",
   searchString = "Search...",
+  emptyString = "Nothing found",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
   const handleOpen = async () => {
-    if (!open) {
+    if (!open && refetch) {
       await refetch();
     }
     setOpen(!open);
@@ -72,7 +74,7 @@ export function ComboboxDemo({
             className="h-9"
           />
           <CommandList>
-            <CommandEmpty>No movies found.</CommandEmpty>
+            <CommandEmpty>{emptyString}</CommandEmpty>
             <CommandGroup>
               {data && data.map(item => (
                 <CommandItem

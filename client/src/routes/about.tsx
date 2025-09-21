@@ -38,6 +38,7 @@ function About() {
         refetch={refetch}
         selectString="Select a film"
         searchString="Search for a film"
+        emptyString="No movies found."
       />
       {data && data.item}
     </div>
