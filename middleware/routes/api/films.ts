@@ -35,7 +35,7 @@ export default async function (server: FastifyInstance) {
       initialRequest.forEach((film: swapiFilm) => {
         finalData.push({
           id: film.episode_id,
-          value: film.episode_id + "",
+          value: film.title,
           label: film.title,
         });
       });
