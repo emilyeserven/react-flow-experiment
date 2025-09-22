@@ -50,7 +50,7 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
       <div>
 
         <NodeToolbar
-          isVisible={true}
+          isVisible={props.selected}
           position={Position.Right}
         >
           {!editMode && (

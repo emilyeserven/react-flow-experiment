@@ -50,7 +50,7 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
       <div>
 
         <NodeToolbar
-          isVisible={true}
+          isVisible={props.selected}
           position={Position.Right}
         >
           {!editMode && (
