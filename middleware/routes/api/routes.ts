@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 
 import apiFilms from "./films.js";
 import apiPokemon from "./pokemon.js";
+import apiPokemonSpecific from "./pokemonSpecific.js";
 import apiRoot from "./root.js";
 import apiTest from "./test.js";
 
@@ -13,4 +14,5 @@ export default async function (server: FastifyInstance) {
   fastify.register(apiTest);
   fastify.register(apiFilms);
   fastify.register(apiPokemon);
+  fastify.register(apiPokemonSpecific);
 }

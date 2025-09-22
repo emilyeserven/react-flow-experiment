@@ -26,15 +26,23 @@ export default async function (server: FastifyInstance) {
     "/pokemon",
     async function () {
       const initialRequest: pokemonApi = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=60").then(res => res.json());
-      const finalData: SelectOption[] = [];
+      const apiData: pokemonObj[] = [];
+      const selectData: SelectOption[] = [];
       initialRequest.results.forEach((mon: pokemonObj) => {
-        finalData.push({
+        selectData.push({
           id: mon.name,
           value: mon.name,
           label: mon.name,
         });
+        apiData.push({
+          name: mon.name,
+          url: mon.url,
+        });
       });
-      return finalData;
+      return {
+        selectData,
+        apiData,
+      };
     },
   );
 }

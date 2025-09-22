@@ -1,11 +1,13 @@
 import type { Node, NodeProps } from "@xyflow/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import { Handle, NodeToolbar, Position, useReactFlow } from "@xyflow/react";
 import { Edit, Save } from "lucide-react";
 
 import { ComboboxPokemon } from "@/components/ui/combobox/ComboboxPokemon.tsx";
+import { fetchPokemon } from "@/utils/fetchFunctions.ts";
 
 export type PokemonNodeProps = Node<
   {
@@ -21,7 +23,15 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
   const [valueData, setValueData] = useState<string>(props.data?.valueData ? props.data.valueData as string : "");
   const [editMode, setEditMode] = useState<boolean>(false);
 
-  const updateValue = () => {
+  const {
+    data, refetch,
+  } = useQuery({
+    queryKey: [`pokemon-${valueData}`],
+    queryFn: () => fetchPokemon(valueData),
+  });
+  const [pokemonInfo, setPokemonInfo] = useState(data);
+
+  const updateValue = async () => {
     setNodes(nodes =>
       nodes.map((node) => {
         if (node.id === props.id) {
@@ -37,7 +47,12 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
         return node;
       }));
     setEditMode(false);
+    await refetch();
   };
+
+  useEffect(() => {
+    setPokemonInfo(data);
+  }, [data]);
 
   return (
     <div
@@ -72,16 +87,28 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
           type="source"
           position={Position.Right}
         />
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4">
           { editMode && (
             <ComboboxPokemon
               initialValue={valueData}
               setValueData={setValueData}
             />
           )}
-          { !editMode && (
-            <p className="px-6 py-1.5 text-sm">{valueData}</p>
-          )}
+          <div className="flex flex-col items-center gap-4">
+            { !editMode && (
+              <p className="px-6 py-1.5 text-sm">{valueData}</p>
+            )}
+
+            {pokemonInfo && (
+              <p>
+                <img
+                  className={editMode ? "grayscale" : ""}
+                  src={pokemonInfo.sprites.front_default}
+                />
+              </p>
+            )}
+          </div>
+
         </div>
 
       </div>

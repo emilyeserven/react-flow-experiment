@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { Combobox } from "@/components/ui/combobox/Combobox.tsx";
-import { fetchPokemon } from "@/utils/fetchFunctions.ts";
+import { fetchPokemonAll } from "@/utils/fetchFunctions.ts";
 
 interface ComboboxFilmsProps {
   initialValue?: string;
@@ -13,17 +13,17 @@ export function ComboboxPokemon({
   setValueData,
 }: ComboboxFilmsProps) {
   const {
-    data: filmData, refetch,
+    data, refetch,
   } = useQuery({
     queryKey: ["pokemon"],
-    queryFn: () => fetchPokemon(),
+    queryFn: () => fetchPokemonAll(),
     enabled: false,
   });
 
   return (
 
     <Combobox
-      data={filmData}
+      data={data?.selectData}
       refetch={refetch}
       initialValue={initialValue}
       setValueData={setValueData}

@@ -1,13 +1,15 @@
-import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode } from "@xyflow/react";
+import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode, EdgeBase } from "@xyflow/react";
 import type { ChangeEventHandler } from "react";
 
 import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
+import { toast, Toaster } from "sonner";
 
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
+
 import { FilmNode } from "@/components/nodes/FilmNode.tsx";
 import { PokemonNode } from "@/components/nodes/PokemonNode.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -52,7 +54,7 @@ const initialNodes: Node[] = [
   },
   {
     id: "n3b",
-    type: "pokemon",
+    type: "film",
     position: {
       x: 500,
       y: 50,
@@ -60,12 +62,12 @@ const initialNodes: Node[] = [
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
     data: {
-      valueData: "bulbasaur",
+      valueData: "The Empire Strikes Back",
     },
   },
   {
     id: "n3c",
-    type: "film",
+    type: "pokemon",
     position: {
       x: 500,
       y: 150,
@@ -73,7 +75,7 @@ const initialNodes: Node[] = [
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
     data: {
-      valueData: "The Empire Strikes Back",
+      valueData: "bulbasaur",
     },
   },
 ];
@@ -105,7 +107,7 @@ export const Route = createFileRoute("/flow")({
 });
 
 function Flow() {
-  const appColorMode = useTheme();
+  const appColorMode = useTheme() as unknown as ColorMode;
   const [colorMode, setColorMode] = useState<ColorMode>(appColorMode);
   const [nodes, setNodes] = useState(localStorage.getItem("nodes") ? JSON.parse(localStorage.getItem("nodes") + "") : initialNodes);
   const [edges, setEdges] = useState(localStorage.getItem("edges") ? JSON.parse(localStorage.getItem("edges") + "") : initialEdges);
@@ -130,21 +132,25 @@ function Flow() {
   const handleSaveClicked = () => {
     localStorage.setItem("nodes", JSON.stringify(nodes));
     localStorage.setItem("edges", JSON.stringify(edges));
+    toast.success("Layout saved!");
   };
 
   const handleClearClicked = () => {
     localStorage.setItem("edges", JSON.stringify([]));
     setEdges([]);
+    toast.success("Edges cleared!");
   };
 
   const handleLoadClicked = () => {
     setNodes(localStorage.getItem("nodes") && JSON.parse(localStorage.getItem("nodes") + ""));
     setEdges(localStorage.getItem("edges") && JSON.parse(localStorage.getItem("edges") + ""));
+    toast.success("Layout loaded!");
   };
 
   const handleDefaultClicked = () => {
     setNodes(initialNodes);
     setEdges(initialEdges);
+    toast("Default layout restored.");
   };
 
   return (
@@ -154,6 +160,7 @@ function Flow() {
         height: "calc(100vh - 50px)",
       }}
     >
+      <Toaster position="bottom-right" />
       <ReactFlow
         nodes={nodes}
         nodeTypes={nodeTypes}
