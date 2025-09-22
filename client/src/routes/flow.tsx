@@ -11,6 +11,7 @@ import "@xyflow/react/dist/style.css";
 import { FilmNode } from "@/components/nodes/FilmNode.tsx";
 import { PokemonNode } from "@/components/nodes/PokemonNode.tsx";
 import { TextUpdaterNode } from "@/components/nodes/TextUpdaterNode.tsx";
+import { useTheme } from "@/hooks/useTheme.ts";
 
 const initialNodes: Node[] = [
   {
@@ -79,7 +80,7 @@ const initialNodes: Node[] = [
     id: "n4",
     type: "pokemon",
     position: {
-      x: 700,
+      x: 800,
       y: 0,
     },
     sourcePosition: Position.Right,
@@ -122,7 +123,8 @@ export const Route = createFileRoute("/flow")({
 });
 
 function Flow() {
-  const [colorMode, setColorMode] = useState<ColorMode>("light");
+  const appColorMode = useTheme();
+  const [colorMode, setColorMode] = useState<ColorMode>(appColorMode);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
