@@ -28,6 +28,5 @@ interface PokemonSpecificData {
   };
 }
 export async function fetchPokemon(mon: string): Promise<PokemonSpecificData> {
-  console.log(mon);
   return await fetch(`http://localhost:3001/api/pokemon/${mon}`).then(res => res.json());
 }
