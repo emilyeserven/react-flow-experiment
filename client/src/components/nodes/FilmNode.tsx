@@ -49,7 +49,10 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
     >
       <div>
 
-        <NodeToolbar isVisible={true}>
+        <NodeToolbar
+          isVisible={true}
+          position={Position.Right}
+        >
           {!editMode && (
             <button>
               <Edit onClick={() => setEditMode(true)} />

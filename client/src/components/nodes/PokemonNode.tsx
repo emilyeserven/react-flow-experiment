@@ -1,8 +1,8 @@
-import type { NodeProps, Node } from "@xyflow/react";
+import type { Node, NodeProps } from "@xyflow/react";
 
 import { useState } from "react";
 
-import { NodeToolbar, useReactFlow, Handle, Position } from "@xyflow/react";
+import { Handle, NodeToolbar, Position, useReactFlow } from "@xyflow/react";
 import { Edit, Save } from "lucide-react";
 
 import { ComboboxPokemon } from "@/components/ui/combobox/ComboboxPokemon.tsx";
@@ -49,7 +49,10 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
     >
       <div>
 
-        <NodeToolbar isVisible={true}>
+        <NodeToolbar
+          isVisible={true}
+          position={Position.Right}
+        >
           {!editMode && (
             <button>
               <Edit onClick={() => setEditMode(true)} />
