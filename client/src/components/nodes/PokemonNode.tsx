@@ -1,6 +1,6 @@
 import type { Node, NodeProps } from "@xyflow/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { Handle, NodeToolbar, Position, useReactFlow } from "@xyflow/react";
@@ -29,7 +29,7 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
     queryKey: [`pokemon-${valueData}`],
     queryFn: () => fetchPokemon(valueData),
   });
-  const [pokemonInfo] = useState(data);
+  const [pokemonInfo, setPokemonInfo] = useState(data);
 
   const updateValue = async () => {
     setNodes(nodes =>
@@ -49,6 +49,10 @@ export function PokemonNode(props: NodeProps<PokemonNodeProps>) {
     setEditMode(false);
     await refetch();
   };
+
+  useEffect(() => {
+    setPokemonInfo(data);
+  }, [data]);
 
   return (
     <div
