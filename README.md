@@ -5,6 +5,7 @@
   - Figuring out DB is PITA so maybe just attempt save/load from localStorage for now
 - Use pokemon node to figure out infinite scrolling in cmdk
   - Can also figure out how to load data after save (ex, load sprite for pokemon ([docs](https://pokeapi.co/docs/v2#pokemon)))
+- Need to be able to save previous state and cancel
 
 ## Add node
 - https://reactflow.dev/examples/nodes/add-node-on-edge-drop
