@@ -9,6 +9,7 @@ import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow
 // @ts-expect-error It works, don't worry.
 import "@xyflow/react/dist/style.css";
 import { FilmNode } from "@/components/nodes/FilmNode.tsx";
+import { PokemonNode } from "@/components/nodes/PokemonNode.tsx";
 import { TextUpdaterNode } from "@/components/nodes/TextUpdaterNode.tsx";
 
 const initialNodes: Node[] = [
@@ -74,6 +75,19 @@ const initialNodes: Node[] = [
       valueData: "The Empire Strikes Back",
     },
   },
+  {
+    id: "n4",
+    type: "pokemon",
+    position: {
+      x: 700,
+      y: 0,
+    },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
+    data: {
+      valueData: "bulbasaur",
+    },
+  },
 ];
 const initialEdges: Edge[] = [{
   id: "n1-n2",
@@ -91,11 +105,16 @@ const initialEdges: Edge[] = [{
   id: "n2-n3c",
   source: "n2",
   target: "n3c",
+}, {
+  id: "n3c-n4",
+  source: "n3c",
+  target: "n4",
 }];
 
 const nodeTypes = {
   textUpdater: TextUpdaterNode,
   film: FilmNode,
+  pokemon: PokemonNode,
 };
 
 export const Route = createFileRoute("/flow")({

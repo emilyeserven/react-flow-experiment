@@ -7,3 +7,7 @@ export async function fetchTest() {
 export async function fetchFilms(): Promise<SelectOption[]> {
   return await fetch("http://localhost:3001/api/films").then(res => res.json());
 }
+
+export async function fetchPokemon(): Promise<SelectOption[]> {
+  return await fetch("http://localhost:3001/api/pokemon").then(res => res.json());
+}
