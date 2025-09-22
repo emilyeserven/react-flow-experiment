@@ -10,6 +10,7 @@ import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow
 import "@xyflow/react/dist/style.css";
 import { FilmNode } from "@/components/nodes/FilmNode.tsx";
 import { PokemonNode } from "@/components/nodes/PokemonNode.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import { useTheme } from "@/hooks/useTheme.ts";
 
 const initialNodes: Node[] = [
@@ -106,8 +107,8 @@ export const Route = createFileRoute("/flow")({
 function Flow() {
   const appColorMode = useTheme();
   const [colorMode, setColorMode] = useState<ColorMode>(appColorMode);
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [nodes, setNodes] = useState(localStorage.getItem("nodes") ? JSON.parse(localStorage.getItem("nodes") + "") : initialNodes);
+  const [edges, setEdges] = useState(localStorage.getItem("edges") ? JSON.parse(localStorage.getItem("edges") + "") : initialEdges);
 
   const onNodesChange: OnNodesChange = useCallback(
     changes => setNodes(nodesSnapshot => applyNodeChanges(changes, nodesSnapshot)),
@@ -124,6 +125,26 @@ function Flow() {
 
   const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
     setColorMode(evt.target.value as ColorMode);
+  };
+
+  const handleSaveClicked = () => {
+    localStorage.setItem("nodes", JSON.stringify(nodes));
+    localStorage.setItem("edges", JSON.stringify(edges));
+  };
+
+  const handleClearClicked = () => {
+    localStorage.setItem("edges", JSON.stringify([]));
+    setEdges([]);
+  };
+
+  const handleLoadClicked = () => {
+    setNodes(localStorage.getItem("nodes") && JSON.parse(localStorage.getItem("nodes") + ""));
+    setEdges(localStorage.getItem("edges") && JSON.parse(localStorage.getItem("edges") + ""));
+  };
+
+  const handleDefaultClicked = () => {
+    setNodes(initialNodes);
+    setEdges(initialEdges);
   };
 
   return (
@@ -151,18 +172,28 @@ function Flow() {
         <MiniMap />
 
         <Panel position="top-left">
-          <select
-            className={`
-              bg-black text-white
-              dark:bg-white dark:text-black
-            `}
-            onChange={onChange}
-            data-testid="colormode-select"
-          >
-            <option value="dark">dark</option>
-            <option value="light">light</option>
-            <option value="system">system</option>
-          </select>
+          <div>
+            <div>
+              <select
+                className={`
+                  bg-black text-white
+                  dark:bg-white dark:text-black
+                `}
+                onChange={onChange}
+                data-testid="colormode-select"
+              >
+                <option value="dark">dark</option>
+                <option value="light">light</option>
+                <option value="system">system</option>
+              </select>
+            </div>
+            <div>
+              <Button onClick={() => { handleSaveClicked(); }}>Save</Button>
+              <Button onClick={() => { handleLoadClicked(); }}>Load</Button>
+              <Button onClick={() => { handleClearClicked(); }}>Clear</Button>
+              <Button onClick={() => { handleDefaultClicked(); }}>Default</Button>
+            </div>
+          </div>
         </Panel>
       </ReactFlow>
     </div>
