@@ -1,7 +1,7 @@
-import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode, EdgeBase } from "@xyflow/react";
+import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode } from "@xyflow/react";
 import type { ChangeEventHandler } from "react";
 
-import { useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
@@ -152,6 +152,10 @@ function Flow() {
     setEdges(initialEdges);
     toast("Default layout restored.");
   };
+
+  useEffect(() => {
+    console.log(nodes);
+  }, [nodes]);
 
   return (
     <div
