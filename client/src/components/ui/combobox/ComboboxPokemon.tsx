@@ -27,9 +27,9 @@ export function ComboboxPokemon({
       refetch={refetch}
       initialValue={initialValue}
       setValueData={setValueData}
-      selectString="Select a film"
-      searchString="Search for a film"
-      emptyString="No movies found."
+      selectString="Select a pokemon"
+      searchString="Search for a pokemon"
+      emptyString="No pokemon found."
     />
   );
 }
