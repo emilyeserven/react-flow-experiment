@@ -2,9 +2,9 @@ import type { NodeProps, Node } from "@xyflow/react";
 
 import { useState } from "react";
 
-import { useReactFlow, Handle, Position } from "@xyflow/react";
+import { NodeToolbar, useReactFlow, Handle, Position } from "@xyflow/react";
+import { Edit, Save } from "lucide-react";
 
-import { Button } from "@/components/ui/Button.tsx";
 import { ComboboxFilms } from "@/components/ui/combobox/ComboboxFilms.tsx";
 
 export type FilmNodeProps = Node<
@@ -42,13 +42,25 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
   return (
     <div
       className={`
-        h-12.5 rounded-sm border border-gray-900 bg-white p-1 shadow-gray-200
+        rounded-sm border border-gray-900 bg-white p-1 px-3 py-2 shadow-gray-200
         hover:shadow
         dark:border-gray-700 dark:bg-gray-900
       `}
     >
       <div>
 
+        <NodeToolbar isVisible={true}>
+          {!editMode && (
+            <button>
+              <Edit onClick={() => setEditMode(true)} />
+            </button>
+          )}
+          {editMode && (
+            <button onClick={() => updateValue()}>
+              <Save />
+            </button>
+          )}
+        </NodeToolbar>
         <Handle
           type="target"
           position={Position.Left}
@@ -57,23 +69,17 @@ export function FilmNode(props: NodeProps<FilmNodeProps>) {
           type="source"
           position={Position.Right}
         />
-        { editMode && (
-          <div>
+        <div className="flex items-center gap-4">
+          { editMode && (
             <ComboboxFilms
               initialValue={valueData}
               setValueData={setValueData}
             />
-            {" "}
-            <Button onClick={() => { updateValue(); }}>Save</Button>
-
-          </div>
-        )}
-        { !editMode && (
-          <div>
-            {valueData}
-            <Button onClick={() => { setEditMode(true); }}>Edit</Button>
-          </div>
-        )}
+          )}
+          { !editMode && (
+            <p className="px-6 py-1.5 text-sm">{valueData}</p>
+          )}
+        </div>
 
       </div>
     </div>
