@@ -1,7 +1,7 @@
 import type { Node, Edge, OnNodesChange, OnEdgesChange, OnConnect, ColorMode } from "@xyflow/react";
 import type { ChangeEventHandler } from "react";
 
-import { useEffect, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { addEdge, Panel, applyEdgeChanges, applyNodeChanges, Position, ReactFlow, MiniMap, Background, Controls, BackgroundVariant } from "@xyflow/react";
@@ -122,7 +122,7 @@ export const Route = createFileRoute("/flow")({
 });
 
 function Flow() {
-  const [colorMode, setColorMode] = useState<ColorMode>("system");
+  const [colorMode, setColorMode] = useState<ColorMode>("light");
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
@@ -142,10 +142,6 @@ function Flow() {
   const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
     setColorMode(evt.target.value as ColorMode);
   };
-
-  useEffect(() => {
-    console.log(nodes);
-  }, [nodes]);
 
   return (
     <div
