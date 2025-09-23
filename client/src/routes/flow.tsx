@@ -142,9 +142,14 @@ function Flow() {
   };
 
   const handleLoadClicked = () => {
-    setNodes(localStorage.getItem("nodes") && JSON.parse(localStorage.getItem("nodes") + ""));
-    setEdges(localStorage.getItem("edges") && JSON.parse(localStorage.getItem("edges") + ""));
-    toast.success("Layout loaded!");
+    if (localStorage.getItem("nodes") && localStorage.getItem("edges")) {
+      setNodes(localStorage.getItem("nodes") && JSON.parse(localStorage.getItem("nodes") + ""));
+      setEdges(localStorage.getItem("edges") && JSON.parse(localStorage.getItem("edges") + ""));
+      toast.success("Layout loaded!");
+    }
+    else {
+      toast.error("Layout not found!");
+    }
   };
 
   const handleDefaultClicked = () => {
